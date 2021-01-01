@@ -1,0 +1,12 @@
+#titulo {
+    text-align: center;
+}
+
+.botao {
+    margin: 10px 20px;
+    
+}
+
+.botao, .imagem {
+    border-radius: 20px;
+}
