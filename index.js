@@ -22,47 +22,46 @@ function showHideImg(botao, arquivo) {
 
         botao.innerHTML = `<img src="${arquivo}" alt="${arquivo.slice(4,-4)}">`;
         
+        
+
         manterCarta(botao, arquivo.slice(4,-4));
+
+        console.log(" ");
+        
     }
     
     qtdCartasViradas++;
-    setTimeout(tempoVisualizacao, 2000, botao);
-
-    if(botaoAnterior !== botao){
-        botaoAnterior = botao;
-    }
 }
 
 function manterCarta(botao, imagem)  {
 
     if(cartaVirada) {
         manter = (cartaVirada === imagem) ? true : false;
-        cartaVirada = "";
         setTimeout(tempoVisualizacao, 2000, botao);
+        cartaVirada = "";
     }else {
         cartaVirada = imagem;
+        botaoAnterior = botao;
     }
 }
 
 function tempoVisualizacao(botao) {
 
-    console.log(botaoAnterior);
     if(!manter && (qtdCartasViradas >1)) {
+
         botao.innerHTML = `<img src="img/comum.png" alt="comum">`;
         botaoAnterior.innerHTML = `<img src="img/comum.png" alt="comum">`;
         qtdCartasViradas = 0;
+        botaoAnterior = "";
     }
 }
 
 
 botao1.addEventListener('click', function(event) {
     // console.log(event);
-    console.log("botao1");
     showHideImg(botao1, imagens[0]);
-    // botao1.virar = 
 });
 botao2.addEventListener('click', function(event) {
-    console.log("botao2");
     showHideImg(botao2, imagens[1]);
 });
 botao3.addEventListener('click', function(event) {
