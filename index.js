@@ -5,6 +5,9 @@ const botao4 = document.querySelector('#botao4');
 const botao5 = document.querySelector('#botao5');
 const botao6 = document.querySelector('#botao6');
 
+const audio = document.querySelector(".virarCarta");
+
+
 let imagens = ["img/java.png", "img/javascript.png", "img/python.png"];
 imagens = imagens.concat(imagens);
 imagens.sort(() => Math.random() - 0.5);
@@ -59,20 +62,26 @@ function tempoVisualizacao(botao) {
 
 botao1.addEventListener('click', function(event) {
     // console.log(event);
+    audio.play();
     showHideImg(botao1, imagens[0]);
 });
 botao2.addEventListener('click', function(event) {
+    audio.play();
     showHideImg(botao2, imagens[1]);
 });
 botao3.addEventListener('click', function(event) {
+    audio.play();
     showHideImg(botao3, imagens[2]);
 });
 botao4.addEventListener('click', function(event) {
+    audio.play();
     showHideImg(botao4, imagens[3]);
 });
 botao5.addEventListener('click', function(event) {
+    audio.play();
     showHideImg(botao5, imagens[4]);
 });
 botao6.addEventListener('click', function(event) {
+    audio.play();
     showHideImg(botao6, imagens[5]);
 });
