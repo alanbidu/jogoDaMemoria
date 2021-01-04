@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="reset.css">
     <link rel="stylesheet" href="style.css">
     <title>Jogo da memória</title>
 </head>
@@ -12,6 +13,9 @@
     </header>
 
     <main>
+
+        <audio id="musica" src="som/matrix.mp3"></audio>
+
         <div class="container">
             <audio class="virarCarta" src="som/virando.mp3"></audio>
             <button class="botao" id="botao1"><img class="imagem" src="img/comum.png" alt="Carta 1" width="" height=""></button>
@@ -20,6 +24,11 @@
             <button class="botao" id="botao4"><img class="imagem" src="img/comum.png" alt="Carta 4" width="" height=""></button>
             <button class="botao" id="botao5"><img class="imagem" src="img/comum.png" alt="Carta 5" width="" height=""></button>
             <button class="botao" id="botao6"><img class="imagem" src="img/comum.png" alt="Carta 6" width="" height=""></button>
+        </div>
+
+        <div>
+            <button class="botao" id="comecar">Começar</button>
+
         </div>
     </main>
 
