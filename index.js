@@ -10,29 +10,32 @@ let cartaVirada = "";   //Qual carta foi virada
 let manter = false;   //Manter carta virada
 let botaoAnterior = ""; //Botão clicado anteriormente
 let qtdCartasViradas = 0;
+let pontos = 0;
+let cartasDistribuidas = false;
 
 
 embaralharCartas();
 
-distribuirCartas(6);
-
-
 comecar.addEventListener("click", function(event) {
     musica.play();
     musica.volume = 0.2;
-    distribuirCartas(6);
+
+    if(distribuirCartas(6)) {
+        for (let i = 0; i < 6; i++) {
+            arrayDeEventos[i] = document.querySelector("#botao" + (i + 1));
+            arrayDeEventos[i].addEventListener("click", function(event) {
+                // console.log(event);
+                audio.load();
+                audio.play();
+                showHideImg(arrayDeEventos[i], imagens[i]);
+                if(ganhou()) {
+                    animacaoVitoria();
+                }
+            });
+        }
+    }
 });
 
-
-for (let i = 0; i < 6; i++) {
-    arrayDeEventos[i] = document.querySelector("#botao" + (i + 1));
-    arrayDeEventos[i].addEventListener("click", function(event) {
-        // console.log(event);
-        audio.load();
-        audio.play();
-        showHideImg(arrayDeEventos[i], imagens[i]);
-    });
-}
 
 function showHideImg(botao, arquivo) {
     // console.log(botao.querySelector("img").src.split("/")[9]);
@@ -70,14 +73,54 @@ function tempoVisualizacao(botao) {
         botaoAnterior.innerHTML = `<img src="img/comum.png" alt="comum">`;
         qtdCartasViradas = 0;
         botaoAnterior = "";
+        pontos++;
     }
 }
 
 function embaralharCartas() {
+    
     imagens = imagens.concat(imagens);
     imagens.sort(() => Math.random() - 0.5);
 }
 
 function distribuirCartas(qtdCartas) {
-    
+
+    let tagPai = document.querySelector(".container");
+
+        for(let i = 1; i <= qtdCartas; i++){
+
+        let botaoCriado = document.createElement("button");
+
+        botaoCriado.classList.add("botao");
+        botaoCriado.id = "botao" + i;
+
+        let imagemFilha = anexarImagem(i);
+
+        botaoCriado.appendChild(imagemFilha);
+
+        tagPai.appendChild(botaoCriado);
+    }
+
+    console.log(cartasDistribuidas);
+
+    return cartasDistribuidas = true;  //OLHAR AQUI!!!!
+}
+
+function anexarImagem(indice){
+
+    let imagemCriada = document.createElement("img");
+
+    imagemCriada.classList.add("imagem");
+    imagemCriada.src = "img/comum.png";
+    imagemCriada.alt = "Carta " + indice;
+
+    return imagemCriada;
+}
+
+function ganhou(){
+    return false; //true ou false
+}
+
+function animacaoVitoria(){
+
 }

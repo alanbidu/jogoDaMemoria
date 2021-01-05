@@ -22,3 +22,12 @@
 .botao, .imagem {
     border-radius: 20px;
 }
+
+.container__comecar {
+    margin: 2% 42% 70%;
+}
+
+#comecar {
+    width: 10em;
+    height: 3em;
+}
