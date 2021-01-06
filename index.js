@@ -1,6 +1,8 @@
 const musica = document.querySelector("#musica");
 const audio = document.querySelector(".virarCarta");
 const comecar = document.querySelector("#comecar");
+const tagPai = document.querySelector(".container");
+
 
 const arrayDeEventos = [];
 
@@ -11,16 +13,19 @@ let manter = false;   //Manter carta virada
 let botaoAnterior = ""; //Botão clicado anteriormente
 let qtdCartasViradas = 0;
 let pontos = 0;
-let cartasDistribuidas = false;
+let cartasDistribuidas = 0;
 
-
-embaralharCartas();
 
 comecar.addEventListener("click", function(event) {
+    musica.load();
     musica.play();
     musica.volume = 0.2;
 
-    if(distribuirCartas(6)) {
+    embaralharCartas();
+
+    if(distribuirCartas(6) === 1) {
+
+        console.log("Adicionndo EventListener");
         for (let i = 0; i < 6; i++) {
             arrayDeEventos[i] = document.querySelector("#botao" + (i + 1));
             arrayDeEventos[i].addEventListener("click", function(event) {
@@ -85,8 +90,8 @@ function embaralharCartas() {
 
 function distribuirCartas(qtdCartas) {
 
-    let tagPai = document.querySelector(".container");
 
+    if(!cartasDistribuidas) {
         for(let i = 1; i <= qtdCartas; i++){
 
         let botaoCriado = document.createElement("button");
@@ -99,11 +104,20 @@ function distribuirCartas(qtdCartas) {
         botaoCriado.appendChild(imagemFilha);
 
         tagPai.appendChild(botaoCriado);
+
+        }
+
+        cartasDistribuidas++;
+
+    }else{
+        for(let i = 1; i <= qtdCartas; i++){
+            tagPai.children[i].children[0].src = "img/comum.png";
+            cartasDistribuidas++;
+        }
+        console.log("Resetando");
     }
 
-    console.log(cartasDistribuidas);
-
-    return cartasDistribuidas = true;  //OLHAR AQUI!!!!
+    return cartasDistribuidas;
 }
 
 function anexarImagem(indice){
