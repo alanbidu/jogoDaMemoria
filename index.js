@@ -1,12 +1,18 @@
 const musica = document.querySelector("#musica");
 const audio = document.querySelector(".virarCarta");
+const musicaVitoria = document.querySelector("#musica-vitoria");
 const comecar = document.querySelector("#comecar");
-const tagPai = document.querySelector(".container");
+const tagPaiContainer = document.querySelector(".container");
+const tagPaiBody = document.querySelector("#body-imagem");
+const divGanhou = document.createElement("div");
 
+tagPaiBody.appendChild(divGanhou);
 
 const arrayDeEventos = [];
 
 let imagens = ["img/imagem4.png", "img/imagem5.png", "img/imagem6.png"];
+imagens = imagens.concat(imagens);
+
 
 let cartaVirada = "";   //Qual carta foi virada
 let manter = false;   //Manter carta virada
@@ -14,18 +20,26 @@ let botaoAnterior = ""; //Botão clicado anteriormente
 let qtdCartasViradas = 0;
 let pontos = 0;
 let cartasDistribuidas = 0;
-
+let acertos;
 
 comecar.addEventListener("click", function(event) {
+    
+    musicaVitoria.pause();
+    
     musica.load();
     musica.play();
     musica.volume = 0.2;
+    
+
+
+    acertos = 0;
+
+    divGanhou.id = "";
 
     embaralharCartas();
 
     if(distribuirCartas(6) === 1) {
 
-        console.log("Adicionndo EventListener");
         for (let i = 0; i < 6; i++) {
             arrayDeEventos[i] = document.querySelector("#botao" + (i + 1));
             arrayDeEventos[i].addEventListener("click", function(event) {
@@ -33,9 +47,6 @@ comecar.addEventListener("click", function(event) {
                 audio.load();
                 audio.play();
                 showHideImg(arrayDeEventos[i], imagens[i]);
-                if(ganhou()) {
-                    animacaoVitoria();
-                }
             });
         }
     }
@@ -79,12 +90,17 @@ function tempoVisualizacao(botao) {
         qtdCartasViradas = 0;
         botaoAnterior = "";
         pontos++;
+    }else {
+        acertos++;
+        console.log(acertos);
+        if (acertos === 3) {
+            ganhou(acertos);
+        }
     }
 }
 
 function embaralharCartas() {
     
-    imagens = imagens.concat(imagens);
     imagens.sort(() => Math.random() - 0.5);
 }
 
@@ -103,7 +119,7 @@ function distribuirCartas(qtdCartas) {
 
         botaoCriado.appendChild(imagemFilha);
 
-        tagPai.appendChild(botaoCriado);
+        tagPaiContainer.appendChild(botaoCriado);
 
         }
 
@@ -111,7 +127,7 @@ function distribuirCartas(qtdCartas) {
 
     }else{
         for(let i = 1; i <= qtdCartas; i++){
-            tagPai.children[i].children[0].src = "img/comum.png";
+            tagPaiContainer.children[i].children[0].src = "img/comum.png";
             cartasDistribuidas++;
         }
         console.log("Resetando");
@@ -131,10 +147,30 @@ function anexarImagem(indice){
     return imagemCriada;
 }
 
-function ganhou(){
-    return false; //true ou false
+function ganhou(acertos){
+
+    musica.pause();
+    musicaVitoria.load();
+    musicaVitoria.play();
+    musicaVitoria.volume = 0.8;
+    animacaoVitoria();
+    return (acertos === 3) ? true : false; 
 }
 
 function animacaoVitoria(){
+    
+    divGanhou.id = "ganhou";
 
+    let animation = divGanhou.animate([
+        {transform: "scale(0.1)"},
+        {transform: "scale(1)"},
+        {transform: "scale(0.7)"},
+        {transform: "scale(1)"},
+        {transform: "scale(0.7)"},
+        {transform: "scale(1)"}
+    ], 1500);
+
+    animation.addEventListener("finish", function() {
+        // divGanhou.style.transform = "translate(150px, 200px)";       
+    });
 }

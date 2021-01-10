@@ -7,6 +7,17 @@
     height: 100vh;
 }
 
+#ganhou {
+    background: url(img/ganhou.jpeg);    
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 85%;
+    height: 500px;
+    position: absolute;
+    top: 8vh;
+    left: 7%;
+}
+
 #titulo {
     text-align: center;
     color: yellow;
