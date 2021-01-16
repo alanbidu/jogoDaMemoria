@@ -25,17 +25,22 @@
     font-weight: bold;
 }
 
-.botao {
+.botao, .botao-transparente {
     margin: 10px 20px;
-    
+    height: 230px;
+    width: 230px;
 }
 
 .botao, .imagem {
-    border-radius: 20px;
+    border-radius: 20px;   
+}
+
+.botao-transparente {
+    position: relative;
 }
 
 .container__comecar {
-    margin: 2% 42% 70%;
+    margin: 2% 45% 70%;
 }
 
 #comecar {
