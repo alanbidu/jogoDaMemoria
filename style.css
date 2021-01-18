@@ -7,6 +7,10 @@
     height: 100vh;
 }
 
+/* .container {
+    height: 550px;
+} */
+
 #ganhou {
     background: url(img/ganhou.jpeg);    
     background-repeat: no-repeat;
@@ -25,11 +29,17 @@
     font-weight: bold;
 }
 
-.botao, .botao-transparente {
+.botao {
     margin: 10px 20px;
     height: 230px;
     width: 230px;
 }
+
+.imagem {
+    width: 226px;
+    margin-left: -6px;
+    margin-top: -1px;
+
 
 .botao, .imagem {
     border-radius: 20px;   
@@ -37,13 +47,22 @@
 
 .botao-transparente {
     position: relative;
+    opacity: 0.7;
+    height: 230px;
+    width: 230px;
+    top: -232px;
+    left: -7px;
+    z-index: -1;
 }
 
 .container__comecar {
-    margin: 2% 45% 70%;
+    margin: 2% 44% 70%;
 }
 
 #comecar {
     width: 10em;
     height: 3em;
+    position: relative;
+    top: 0;
+    left: 0;
 }

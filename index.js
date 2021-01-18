@@ -6,9 +6,10 @@ const tagPaiContainer = document.querySelector(".container");
 const tagPaiBody = document.querySelector("#body-imagem");
 const divGanhou = document.createElement("div");
 
+
 tagPaiBody.appendChild(divGanhou);
 
-const arrayDeEventos = [];
+const arrayDeBotoes = [];
 
 let imagens = ["img/imagem4.png", "img/imagem5.png", "img/imagem6.png",
     "img/imagem1.png", "img/imagem2.png", "img/imagem3.png"];
@@ -31,8 +32,6 @@ comecar.addEventListener("click", function(event) {
     musica.play();
     musica.volume = 0.2;
     
-
-
     acertos = 0;
 
     divGanhou.id = "";
@@ -42,18 +41,19 @@ comecar.addEventListener("click", function(event) {
     if(distribuirCartas(imagens.length) === 1) {
 
         for (let i = 0; i < imagens.length; i++) {
-            arrayDeEventos[i] = document.querySelector("#botao" + (i + 1));
-            arrayDeEventos[i].addEventListener("click", function(event) {
+            arrayDeBotoes[i] = document.querySelector("#botao" + (i + 1));
+            arrayDeBotoes[i].addEventListener("click", function(event) {
                 // console.log(event);
                 audio.load();
                 audio.play();
-                showHideImg(arrayDeEventos[i], imagens[i]);
+                showHideImg(arrayDeBotoes[i], imagens[i]);
             });
 
             // botaoNaoClicavel(arrayDeEventos[i], i);
-            botaoNaoClicavel(i);
+            // botaoNaoClicavel(i);
         }
     }
+
 });
 
 
@@ -78,7 +78,8 @@ function manterCarta(botao, imagem)  {
 
     if(cartaVirada) {
         manter = (cartaVirada === imagem) ? true : false;
-        setTimeout(tempoVisualizacao, 1200, botao);
+        desabilitarBotoes();
+        setTimeout(tempoVisualizacao, 2000, botao);
         // console.log("Antes de tempoVisualizacao");
         // tempoVisualizacao(botao);
         cartaVirada = "";
@@ -108,6 +109,8 @@ function tempoVisualizacao(botao) {
             ganhou(acertos);
         }
     }
+    
+    habilitarBotoes();
 }
 
 function embaralharCartas() {
@@ -164,7 +167,6 @@ function ganhou(acertos){
     musicaVitoria.play();
     musicaVitoria.volume = 0.8;
     animacaoVitoria();
-    return (acertos === 3) ? true : false; 
 }
 
 function animacaoVitoria(){
@@ -195,10 +197,20 @@ function animacaoVitoria(){
 //     return new Promise(resolve => setTimeout(resolve, ms));
 // }
 
-function botaoNaoClicavel(i) {
-    let botaoTransparente = document.createElement("button");
-    botaoTransparente.classList.add("botao-transparente");
-    botaoTransparente.id = `botao-transparente${i+1}`;
-    // botao.appendChild(botaoTransparente);
-    tagPaiContainer.appendChild(botaoTransparente);
+// function botaoNaoClicavel(botao, i) {
+//     let botaoTransparente = document.createElement("button");
+//     botaoTransparente.classList.add("botao-transparente");
+//     botaoTransparente.id = `botao-transparente${i+1}`;
+//     // botao.appendChild(botaoTransparente);
+//     botao.appendChild(botaoTransparente);
+// }
+
+function desabilitarBotoes() {
+    arrayDeBotoes.forEach(b => b.disabled = true);
 }
+
+function habilitarBotoes() {
+    arrayDeBotoes.forEach(b => b.disabled = false);
+}
+
+//Criar botaoTransparente como pai do botao do eventListener
