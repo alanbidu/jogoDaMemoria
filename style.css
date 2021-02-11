@@ -46,16 +46,6 @@
     border-radius: 20px;   
 }
 
-.botao-transparente {
-    position: relative;
-    opacity: 0.7;
-    height: 230px;
-    width: 230px;
-    top: -232px;
-    left: -7px;
-    z-index: -1;
-}
-
 .container__comecar {
     margin: 2% 44% 70%;
 }

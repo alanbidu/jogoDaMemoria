@@ -41,7 +41,7 @@ comecar.addEventListener("click", function(event) {
     if(distribuirCartas(imagens.length) === 1) {
 
         for (let i = 0; i < imagens.length; i++) {
-            arrayDeBotoes[i] = document.querySelector("#botao" + (i + 1));
+            arrayDeBotoes[i] = document.querySelector(`#botao${(i + 1)}`);
             arrayDeBotoes[i].addEventListener("click", function(event) {
                 // console.log(event);
                 audio.load();
@@ -49,8 +49,6 @@ comecar.addEventListener("click", function(event) {
                 showHideImg(arrayDeBotoes[i], imagens[i]);
             });
 
-            // botaoNaoClicavel(arrayDeEventos[i], i);
-            // botaoNaoClicavel(i);
         }
     }
 
@@ -80,8 +78,7 @@ function manterCarta(botao, imagem)  {
         manter = (cartaVirada === imagem) ? true : false;
         desabilitarBotoes();
         setTimeout(tempoVisualizacao, 2000, botao);
-        // console.log("Antes de tempoVisualizacao");
-        // tempoVisualizacao(botao);
+        
         cartaVirada = "";
     }else {
         cartaVirada = imagem;
@@ -91,12 +88,9 @@ function manterCarta(botao, imagem)  {
 
 function tempoVisualizacao(botao) {
 
-    // console.log(qtdCartasViradas + " e " + manter);
 
     if(!manter && (qtdCartasViradas > 1)) {
 
-        // console.log("Antes do timeout de tempoVisualizacao");
-        // await timeout(2000);
         botao.innerHTML = `<img class="imagem" src="img/comum.png" alt="comum">`;
         botaoAnterior.innerHTML = `<img class="imagem" src="img/comum.png" alt="comum">`;
         qtdCartasViradas = 0;
@@ -104,9 +98,9 @@ function tempoVisualizacao(botao) {
         pontos++;
     }else {
         acertos++;
-        // console.log("Dentro do else de tempoVisualizacao");
+
         if (acertos === imagens.length/2) {
-            ganhou(acertos);
+            ganhou();
         }
     }
     
@@ -123,16 +117,16 @@ function distribuirCartas(qtdCartas) {
     if(!cartasDistribuidas) {
         for(let i = 1; i <= qtdCartas; i++){
 
-        let botaoCriado = document.createElement("button");
+            let botaoCriado = document.createElement("button");
 
-        botaoCriado.classList.add("botao");
-        botaoCriado.id = "botao" + i;
+            botaoCriado.classList.add("botao");
+            botaoCriado.id = "botao" + i;
 
-        let imagemFilha = anexarImagem(i);
+            let imagemFilha = anexarImagem(i);
 
-        botaoCriado.appendChild(imagemFilha);
+            botaoCriado.appendChild(imagemFilha);
 
-        tagPaiContainer.appendChild(botaoCriado);
+            tagPaiContainer.appendChild(botaoCriado);
 
         }
 
@@ -160,7 +154,7 @@ function anexarImagem(indice){
     return imagemCriada;
 }
 
-function ganhou(acertos){
+function ganhou(){
 
     musica.pause();
     musicaVitoria.load();
@@ -173,7 +167,7 @@ function animacaoVitoria(){
     
     divGanhou.id = "ganhou";
 
-    let animation = divGanhou.animate([
+    divGanhou.animate([
         {transform: "scale(0.1)"},
         {transform: "scale(1)"},
         {transform: "scale(0.5)"},
@@ -188,22 +182,8 @@ function animacaoVitoria(){
         {transform: "scale(1)"}
     ], 5000);
 
-    animation.addEventListener("finish", function() {
-        // divGanhou.style.transform = "translate(150px, 200px)";       
-    });
 }
 
-// function timeout(ms) {
-//     return new Promise(resolve => setTimeout(resolve, ms));
-// }
-
-// function botaoNaoClicavel(botao, i) {
-//     let botaoTransparente = document.createElement("button");
-//     botaoTransparente.classList.add("botao-transparente");
-//     botaoTransparente.id = `botao-transparente${i+1}`;
-//     // botao.appendChild(botaoTransparente);
-//     botao.appendChild(botaoTransparente);
-// }
 
 function desabilitarBotoes() {
     arrayDeBotoes.forEach(b => b.disabled = true);
@@ -212,5 +192,3 @@ function desabilitarBotoes() {
 function habilitarBotoes() {
     arrayDeBotoes.forEach(b => b.disabled = false);
 }
-
-//Criar botaoTransparente como pai do botao do eventListener
